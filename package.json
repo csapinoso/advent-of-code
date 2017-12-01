@@ -1,0 +1,14 @@
+{
+  "name": "aoc",
+  "version": "1.0.0",
+  "description": "advent of code",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "csapinoso",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^21.2.1"
+  }
+}
