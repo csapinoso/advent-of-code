@@ -1,34 +1,53 @@
-module.exports = {
-    part1: function(x) {
-        var arrX = x.split("");
-        var total = 0;
-        arrX.forEach(function callback(currentValue, index, array){
-            var y = parseInt(currentValue);
-            var nextIndex = index + 1;
-            var z = parseInt((nextIndex < array.length) ? array[nextIndex] : array[0]);
-            // console.log("current:", y);
-            // console.log("next:", z);
-            if(y === z) total = total + y;
-            // console.log("total:", total);
+var day2 = {
+    part1: function(spreadsheet) {
+        var rows = spreadsheet.split('\n');
+        var checksum = 0;
+        rows.forEach(function(item, i, arr) {
+            var row = item.split(" ");
+            var diff = getHighLowDiff(row);
+            checksum += diff;
         });
-        return total;
+        return checksum;
     },
-    part2: function(x) {
-        var arrX = x.split("");
-        var total = 0;
-        arrX.forEach(function callback(currentValue, index, array){
-            var y = parseInt(currentValue);
-            var nextIndex = index + (array.length/2)
-            if(nextIndex>=array.length) nextIndex = nextIndex-array.length;
-            var z = parseInt(array[nextIndex]);
-            // console.log("current:", y);
-            // console.log("next:", z);
-            if(y === z) total = total + y;
-            // console.log("total:", total);
-        }); 
-        return total;
-    },
+    part2: function(spreadsheet) {
+        var rows = spreadsheet.split('\n');
+        var checksum = 0;
+        rows.forEach(function(item, i, arr) {
+            var row = item.split(" ");
+            var diff = getDivisible(row);
+            checksum += diff;
+        });
+        return checksum;
+    }
 };
+
+function getHighLowDiff(arr) {
+    arr = arr.map(function(x) {
+        return parseInt(x);
+    });
+    var max = arr.reduce(function(a, b) {
+        return Math.max(a, b);
+    }); 
+    var min = arr.reduce(function(a, b) {
+        return Math.min(a, b);
+    });
+    return max - min;
+}
+
+function getDivisible(rows) {
+    let result = 0;
+    for (let i = 0; i < rows.length; i++) {
+        for (let j = i+1; j < rows.length; j++) {
+            const x = parseInt(rows[i]);
+            const y = parseInt(rows[j]);
+            if (x % y === 0) result += x/y;
+            else if (y % x === 0) result += y/x;
+        }
+    }
+    return result;
+}
+
+module.exports = day2;
 
 
 
